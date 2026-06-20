@@ -64,6 +64,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            flex-grow: 1;
         }
 
         .nav-item {
@@ -94,6 +95,15 @@
             padding: 2px 6px;
             border-radius: 10px;
             margin-left: auto;
+        }
+
+        /* Sol Menü Altındaki Aktif Kullanıcı Alanı */
+        .sidebar-user-zone {
+            padding: 15px 10px 0 10px;
+            border-top: 1px solid #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         /* Ana İçerik Alanı */
@@ -523,7 +533,7 @@
         .profile-name { font-size: 26px; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
         .profile-tag { font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 20px; }
         .profile-bio { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
-        .profile-badges { display: flex; justify-content: center; gap: 15px; }
+        .profile-badges { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
         .p-badge { background-color: #1e293b; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid #334155; }
     </style>
 </head>
@@ -545,7 +555,7 @@
                 <i class="fa-solid fa-globe"></i> Global Chat
             </li>
             <li class="nav-item" id="menu-mesajlar" onclick="switchPage('mesajlar')">
-                <i class="fa-solid fa-comments"></i> Mesajlar <span class="badge">1</span>
+                <i class="fa-solid fa-comments"></i> Mesajlar <span class="badge">0</span>
             </li>
             <li class="nav-item" id="menu-dm" onclick="switchPage('dm')">
                 <i class="fa-solid fa-paper-plane"></i> Normal DM
@@ -554,6 +564,11 @@
                 <i class="fa-solid fa-user"></i> Profilim
             </li>
         </ul>
+        
+        <div class="sidebar-user-zone">
+            <div class="status-dot"></div>
+            <span id="sidebar-username" style="font-size: 14px; font-weight: 600;">Sayın Kullanıcı</span>
+        </div>
     </nav>
 
     <main class="main-content">
@@ -561,7 +576,7 @@
         <header class="top-header">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Ara...">
+                <input type="text" id="main-search-input" placeholder="Profil, proje veya üye ara..." oninput="executeSearch()">
             </div>
             <div class="action-buttons">
                 <button class="btn btn-primary" onclick="switchPage('ai')">
@@ -570,7 +585,7 @@
                 <button class="btn btn-blue" onclick="addNewCommunityProject()">
                     <i class="fa-solid fa-plus"></i> Proje Ekle
                 </button>
-                <div class="profile-avatar" onclick="switchPage('profil')">B</div>
+                <div class="profile-avatar" id="header-avatar" onclick="switchPage('profil')">K</div>
             </div>
         </header>
 
@@ -580,24 +595,24 @@
                     
                     <section class="welcome-banner">
                         <div>
-                            <h2 style="font-size: 24px; margin-bottom: 8px;">SGAC Topluluğu</h2>
+                            <h2 style="font-size: 24px; margin-bottom: 8px;" id="welcome-title">SGAC Topluluğuna Hoş Geldiniz!</h2>
                             <p style="color: var(--text-muted); font-size: 14px;">Scratch projelerini paylaş, keşfet ve arkadaşlarınla oyna!</p>
                         </div>
                         <div class="banner-stats">
                             <div class="stat-box">
-                                <div class="stat-num" id="my-project-count">2</div>
+                                <div class="stat-num" id="my-project-count">0</div>
                                 <div class="stat-lbl">PROJEM</div>
                             </div>
                             <div class="stat-box">
-                                <div class="stat-num">3</div>
+                                <div class="stat-num">0</div>
                                 <div class="stat-lbl">BEĞENİM</div>
                             </div>
                         </div>
                     </section>
 
                     <h3 class="section-title"><i class="fa-solid fa-gamepad" style="color: var(--primary);"></i> Oynayabileceğin Projeler <span class="badge-live">Canlı</span></h3>
-                    <div class="games-grid">
-                        <div class="game-card">
+                    <div class="games-grid" id="playable-games-area">
+                        <div class="game-card data-searchable">
                             <div class="game-img" style="background-image: url('https://uploads.scratch.mit.edu/projects/thumbnails/633500695.png');"></div>
                             <div class="game-info">
                                 <div class="game-title">Cave Run</div>
@@ -605,7 +620,7 @@
                                 <a href="https://scratch.mit.edu/projects/633500695" target="_blank" class="play-btn">Oyna</a>
                             </div>
                         </div>
-                        <div class="game-card">
+                        <div class="game-card data-searchable">
                             <div class="game-img" style="background-image: url('https://uploads.scratch.mit.edu/projects/thumbnails/311730619.png');"></div>
                             <div class="game-info">
                                 <div class="game-title">Tower Defence</div>
@@ -613,7 +628,7 @@
                                 <a href="https://scratch.mit.edu/projects/311730619" target="_blank" class="play-btn">Oyna</a>
                             </div>
                         </div>
-                        <div class="game-card">
+                        <div class="game-card data-searchable">
                             <div class="game-img" style="background-image: url('https://uploads.scratch.mit.edu/projects/thumbnails/416049514.png');"></div>
                             <div class="game-info">
                                 <div class="game-title">Super Mario Bros</div>
@@ -621,7 +636,7 @@
                                 <a href="https://scratch.mit.edu/projects/416049514" target="_blank" class="play-btn">Oyna</a>
                             </div>
                         </div>
-                        <div class="game-card">
+                        <div class="game-card data-searchable">
                             <div class="game-img" style="background-image: url('https://uploads.scratch.mit.edu/projects/thumbnails/10123456.png');"></div>
                             <div class="game-info">
                                 <div class="game-title">Minecraft 2D</div>
@@ -636,25 +651,25 @@
                         <button class="btn btn-blue" style="padding: 6px 14px; font-size: 13px;" onclick="addNewCommunityProject()">Proje Paylaş</button>
                     </div>
                     <div class="games-grid" id="community-projects-area">
-                        <div class="game-card community-card">
+                        <div class="game-card community-card data-searchable">
                             <div class="game-img">Scratch Project</div>
                             <div class="game-info">
                                 <div class="game-title">Agalar Clicker</div>
-                                <div class="game-author">A cool Scratch project!</div>
+                                <div class="game-author">Topluluk Oyunu</div>
                             </div>
                         </div>
-                        <div class="game-card community-card">
+                        <div class="game-card community-card data-searchable">
                             <div class="game-img">Scratch Project</div>
                             <div class="game-info">
-                                <div class="game-title">Gariban Kedoş Sezin 1 Bölüm 1</div>
-                                <div class="game-author">Yaptığım en normal oyun</div>
+                                <div class="game-title">Gariban Kedoş Sezon 1 Bölüm 1</div>
+                                <div class="game-author">Eğlenceli Platformer</div>
                             </div>
                         </div>
-                        <div class="game-card community-card">
+                        <div class="game-card community-card data-searchable">
                             <div class="game-img">Scratch Project</div>
                             <div class="game-info">
                                 <div class="game-title">Dürümbüs Simulator</div>
-                                <div class="game-author">Yerli malı oyun!</div>
+                                <div class="game-author">Simülasyon Oyunu</div>
                             </div>
                         </div>
                     </div>
@@ -665,12 +680,14 @@
                     <div class="panel-box">
                         <div class="panel-title">
                             <span>Çevrimiçi Üyeler</span>
-                            <span class="online-count">1</span>
+                            <span class="online-count" id="online-indicator-num">1</span>
                         </div>
-                        <div class="user-row">
-                            <div class="status-dot"></div>
-                            <div class="profile-avatar" style="width: 28px; height: 28px; font-size: 11px; border: 1px solid var(--primary);">B</div>
-                            <span style="font-size: 14px; font-weight: 500;">Boss</span>
+                        <div id="online-users-list">
+                            <div class="user-row data-searchable">
+                                <div class="status-dot"></div>
+                                <div class="profile-avatar sidebar-avatar-sync" style="width: 28px; height: 28px; font-size: 11px; border: 1px solid var(--primary);">K</div>
+                                <span style="font-size: 14px; font-weight: 500;" id="panel-username-lbl">Sayın Kullanıcı</span>
+                            </div>
                         </div>
                     </div>
 
@@ -692,7 +709,7 @@
                         <div class="ai-avatar"><i class="fa-solid fa-wand-magic-sparkles" style="color: white;"></i></div>
                         <div>
                             <div class="ai-title">SGAC AI <span class="ai-beta-tag">BETA</span></div>
-                            <div class="ai-subtitle">Scratch, oyun geliştirme ve daha fazlası</div>
+                            <div class="ai-subtitle">Scratch ve yazılım asistanınız</div>
                         </div>
                     </div>
                     <button class="ai-clear-btn" onclick="clearAIChat()">
@@ -701,20 +718,17 @@
                 </div>
 
                 <div class="ai-messages" id="ai-messages-box">
-                    <div class="msg-bubble msg-ai">
-                        Merhaba! Ben SGAC AI asistanıyım. Scratch, oyun geliştirme veya aklındaki her konu hakkında sorularını yanıtlayabilirim. Ne öğrenmek istiyorsun?
                     </div>
-                </div>
 
                 <div class="ai-input-area">
                     <div class="ai-input-wrapper">
-                        <input type="text" id="ai-input-field" placeholder="Bir şey sor... (Scratch nasıl kullanılır, oyun nasıl yapılır...)" oninput="toggleAISendButton()" onkeydown="if(event.key === 'Enter') sendToAI()">
+                        <input type="text" id="ai-input-field" placeholder="Mesajınızı yazın..." oninput="toggleAISendButton()" onkeydown="if(event.key === 'Enter') sendToAI()">
                     </div>
                     <button class="ai-send-btn" id="ai-btn-submit" onclick="sendToAI()">
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
-                <div class="input-hint">Enter ile gönder - Shift+Enter yeni satır</div>
+                <div class="input-hint">Enter ile gönder</div>
             </div>
         </div>
 
@@ -723,10 +737,10 @@
                 <div class="chat-header"><i class="fa-solid fa-globe" style="color: var(--accent-blue); margin-right: 8px;"></i> Global Chat</div>
                 <div class="chat-messages" id="global-messages">
                     <div class="chat-row">
-                        <div class="chat-avatar">YB</div>
+                        <div class="chat-avatar">U</div>
                         <div class="chat-msg-body">
-                            <div class="chat-uname">Yağız Bozdoğan</div>
-                            <div class="chat-text">Selam agalar! Sitenin tasarımı fena olmuş, ellerine sağlık Boss! 🔥</div>
+                            <div class="chat-uname">Kullanıcı</div>
+                            <div class="chat-text">Selamlar! Sitenin yeni hali çok güzel görünüyor. 🚀</div>
                         </div>
                     </div>
                 </div>
@@ -742,7 +756,7 @@
                 <div class="chat-header"><i class="fa-solid fa-comments" style="color: var(--primary); margin-right: 8px;"></i> Gelen Kutusu</div>
                 <div style="padding: 20px; color: var(--text-muted); text-align: center; margin-top: 50px;">
                     <i class="fa-solid fa-envelope-open" style="font-size: 40px; margin-bottom: 15px; color: var(--primary);"></i>
-                    <p>Teknofest Ekip Grubu mesajları ve bildirimler burada listelenecek Boss!</p>
+                    <p>Gelen kutunuz temiz! Yeni bir bildirim veya mesaj bulunmuyor.</p>
                 </div>
             </div>
         </div>
@@ -752,31 +766,83 @@
                 <div class="chat-header"><i class="fa-solid fa-paper-plane" style="color: var(--success); margin-right: 8px;"></i> Özel Mesajlar (DM)</div>
                 <div style="padding: 20px; color: var(--text-muted); text-align: center; margin-top: 50px;">
                     <i class="fa-solid fa-user-lock" style="font-size: 40px; margin-bottom: 15px; color: var(--success);"></i>
-                    <p>Arkadaşlarınla birebir özel olarak konuşabileceğin DM kutun çok yakında aktif edilecek!</p>
+                    <p>Birebir özel mesajlaşma alanı yakında aktif edilecek.</p>
                 </div>
             </div>
         </div>
 
         <div id="page-profil" class="page">
             <div class="profile-container">
-                <div class="profile-big-avatar">B</div>
-                <div class="profile-name">𝐁𝐎𝐒𝐒 ⌁ 𝐓𝐑</div>
-                <div class="profile-tag">SGAC Platform Kurucusu & Geliştirici</div>
-                <p class="profile-bio">
-                    Merhaba! Ben Ahmet Kerim. Scratch platformunda oyunlar geliştiriyorum, p5.js ve Python ile ilgileniyorum. Aynı zamanda Arduino robotik projeleri yapıyorum. SGAC topluluğuna hoş geldiniz!
+                <div class="profile-big-avatar" id="profile-main-avatar">K</div>
+                <div class="profile-name" id="display-profile-name">Sayın Kullanıcı</div>
+                <div class="profile-tag" id="display-profile-tag">SGAC Topluluk Üyesi</div>
+                <p class="profile-bio" id="display-profile-bio">
+                    Henüz bir profil açıklaması eklenmedi. Kendinizden bahsetmek için profili düzenleyin!
                 </p>
                 <div class="profile-badges">
-                    <span class="p-badge" style="color: var(--primary); border-color: var(--primary);"><i class="fa-solid fa-crown"></i> Admin</span>
-                    <span class="p-badge" style="color: var(--accent-orange); border-color: var(--accent-orange);"><i class="fa-solid fa-code"></i> Developer</span>
-                    <span class="p-badge" style="color: #ef4444; border-color: #ef4444;"><i class="fa-solid fa-futbol"></i> Midfielder</span>
+                    <span class="p-badge" style="color: var(--primary); border-color: var(--primary);"><i class="fa-solid fa-user-check"></i> Onaylı Üye</span>
                 </div>
+                <button class="btn btn-blue" style="margin: 0 auto;" onclick="editMyProfile()">
+                    <i class="fa-solid fa-user-gear"></i> Profili Düzenle
+                </button>
             </div>
         </div>
 
     </main>
 
     <script>
-        // --- 1. SAYFA GEÇİŞ SİSTEMİ ---
+        // --- KULLANICI BİLGİLERİ VE HAFIZA SİSTEMİ ---
+        let userData = {
+            username: "Sayın Kullanıcı",
+            tag: "SGAC Topluluk Üyesi",
+            bio: "Henüz bir profil açıklaması eklenmedi. Kendinizden bahsetmek için profili düzenleyin!",
+            aiNick: "" // Yapay zekanın hitap edeceği isim
+        };
+
+        // Verileri Arayüze Senkronize Eden Fonksiyon
+        function syncUserInterface() {
+            const initial = userData.username.trim().charAt(0).toUpperCase() || "K";
+            
+            // İsimleri Güncelle
+            document.getElementById('sidebar-username').innerText = userData.username;
+            document.getElementById('panel-username-lbl').innerText = userData.username;
+            document.getElementById('display-profile-name').innerText = userData.username;
+            document.getElementById('welcome-title').innerText = `SGAC Topluluğuna Hoş Geldiniz, ${userData.username}!`;
+            
+            // Profil Sayfasını Güncelle
+            document.getElementById('display-profile-tag').innerText = userData.tag;
+            document.getElementById('display-profile-bio').innerText = userData.bio;
+            
+            // Avatarları Güncelle
+            document.getElementById('header-avatar').innerText = initial;
+            document.getElementById('profile-main-avatar').innerText = initial;
+            
+            const syncs = document.querySelectorAll('.sidebar-avatar-sync');
+            syncs.forEach(el => el.innerText = initial);
+        }
+
+        // Profili Düzenleme Buton Fonksiyonu
+        function editMyProfile() {
+            const newName = prompt("Yeni İsminizi Girin:", userData.username);
+            if(newName && newName.trim() !== "") {
+                userData.username = newName.trim();
+            }
+
+            const newTag = prompt("Yeni Unvanınızı Girin (Örn: Geliştirici, Scratch Tasarımcısı):", userData.tag);
+            if(newTag && newTag.trim() !== "") {
+                userData.tag = newTag.trim();
+            }
+
+            const newBio = prompt("Kendiniz hakkında kısa bir açıklama yazın:", userData.bio);
+            if(newBio && newBio.trim() !== "") {
+                userData.bio = newBio.trim();
+            }
+
+            syncUserInterface();
+            alert("Profil bilgileriniz başarıyla güncellendi!");
+        }
+
+        // --- SAYFA GEÇİŞ SİSTEMİ ---
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
@@ -789,19 +855,34 @@
             if(activeMenu) activeMenu.classList.add('active');
         }
 
-        // --- 2. ⚡ DİNAMİK PROJE EKLEME SİSTEMİ ⚡ ---
-        let currentProjectCount = 2;
+        // --- GELİŞMİŞ VE AKTİF ARAMA ÇUBUĞU SİSTEMİ ---
+        function executeSearch() {
+            const query = document.getElementById('main-search-input').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.data-searchable');
+            
+            items.forEach(item => {
+                const textContent = item.textContent.toLowerCase();
+                if(textContent.includes(query)) {
+                    item.style.display = ""; // Eşleşiyorsa göster
+                } else {
+                    item.style.display = "none"; // Eşleşmiyorsa gizle
+                }
+            });
+        }
+
+        // --- DİNAMİK PROJE EKLEME SİSTEMİ ---
+        let currentProjectCount = 0;
 
         function addNewCommunityProject() {
-            const projectTitle = prompt("Eklenecek Scratch Projesinin Adını Yaz Boss:");
+            const projectTitle = prompt("Eklenecek Scratch Projesinin Adını Yazın:");
             if (!projectTitle || projectTitle.trim() === "") return;
 
-            const projectDesc = prompt("Proje için kısa bir açıklama veya yazar adı yaz Boss:");
-            const finalDesc = (projectDesc && projectDesc.trim() !== "") ? projectDesc : "A cool Scratch project!";
+            const projectDesc = prompt("Proje için kısa bir açıklama yazın:");
+            const finalDesc = (projectDesc && projectDesc.trim() !== "") ? projectDesc : "Topluluk Projesi";
 
             const projectArea = document.getElementById('community-projects-area');
             const newCard = document.createElement('div');
-            newCard.className = 'game-card community-card';
+            newCard.className = 'game-card community-card data-searchable';
             newCard.innerHTML = `
                 <div class="game-img">Scratch Project</div>
                 <div class="game-info">
@@ -815,32 +896,19 @@
             currentProjectCount++;
             document.getElementById('my-project-count').innerText = currentProjectCount;
 
-            alert(`"${projectTitle}" başarıyla Topluluk Projelerine eklendi ve PROJEM sayın güncellendi Boss! 🔥`);
+            alert(`"${projectTitle}" başarıyla Topluluk Projelerine eklendi!`);
         }
 
-        // --- 3. 🤖 AKILLI VE DİNAMİK SGAC AI SİSTEMİ ---
-        const aiAnswers = {
-            selam: [
-                "Selamlar Boss! SGAC AI emrinde. Bugün platformu uçuracak hangi harika Scratch oyununu deniyoruz? 🎮",
-                "Ooo kurucumuz Boss gelmiş! Hoş geldin, kodlar fırtına gibi esiyor bugün!"
-            ],
-            brawl: [
-                "Brawl Stars mı? Boss, kupa kasarken çalıda pusan Edgar'lara ve Mortis'lere dikkat et! 🐸",
-                "Hesaplaşma modunda ortalığı dağıtma vakti geldiyse taktikler bende!"
-            ],
-            minecraft: [
-                "Bedwars veya Skywars mı giriyoruz Boss? Hızlıca yol yaparken arkana bakmayı unutma, CraftRise sunucusu bugün çok hareketli! ⚔️",
-                "Minecraft 2D projesine yeni bloklar ve skinler ekleme fikri kulağa nasıl geliyor Boss?"
-            ],
-            nasılsın: [
-                "Harikayım! Kurucumuz Boss sitenin kodlarını tıkır tıkır çalıştırırken benden iyisi olamaz. Sen nasılsın, projemiz nasıl gidiyor? 😎",
-                "Süperim! SGAC topluluğunu büyütmek için yepyeni fikirlerle energy doluyum!"
-            ],
-            galatasaray: [
-                "Şampiyon Galatasaray! 🦁 Sitenin renklerine sarı-kırmızı neon detaylar eklememi ister misin Boss?",
-                "Cimbom! Aslanlar gibi bir futbol maçı sonrası siteyi kodlamak tam bir şampiyon işi!"
-            ]
-        };
+        // --- KİŞİSELLEŞTİRİLMİŞ YAPAY ZEKA SİSTEMİ (HITAP ALANLI) ---
+        function initializeAIChat() {
+            const messagesBox = document.getElementById('ai-messages-box');
+            userData.aiNick = ""; // Sıfırla
+            messagesBox.innerHTML = `
+                <div class="msg-bubble msg-ai" id="ai-first-question">
+                    Merhaba! Ben SGAC Yapay Zeka asistanıyım. Sohbetimize başlamadan önce size nasıl hitap etmemi istersiniz? Lütfen aşağıya sadece isminizi veya tercih ettiğiniz hitap şeklini yazın.
+                </div>
+            `;
+        }
 
         function toggleAISendButton() {
             const inputVal = document.getElementById('ai-input-field').value.trim();
@@ -859,6 +927,7 @@
 
             const messagesBox = document.getElementById('ai-messages-box');
 
+            // Kullanıcı balonunu ekle
             const userDiv = document.createElement('div');
             userDiv.className = 'msg-bubble msg-user';
             userDiv.innerText = userText;
@@ -872,55 +941,48 @@
                 const aiDiv = document.createElement('div');
                 aiDiv.className = 'msg-bubble msg-ai';
                 
-                let lowerText = userText.toLowerCase();
-                let reply = "";
-
-                if (lowerText.includes("selam") || lowerText.includes("sa ") || lowerText.includes("merhaba") || lowerText.includes("selamlar")) {
-                    reply = aiAnswers.selam[Math.floor(Math.random() * aiAnswers.selam.length)];
-                } else if (lowerText.includes("brawl") || lowerText.includes("stars")) {
-                    reply = aiAnswers.brawl[Math.floor(Math.random() * aiAnswers.brawl.length)];
-                } else if (lowerText.includes("minecraft") || lowerText.includes("bedwars") || lowerText.includes("skywars") || lowerText.includes("craftrise")) {
-                    reply = aiAnswers.minecraft[Math.floor(Math.random() * aiAnswers.minecraft.length)];
-                } else if (lowerText.includes("nasıl") || lowerText.includes("iyi sen") || lowerText.includes("naber")) {
-                    reply = aiAnswers.nasılsın[Math.floor(Math.random() * aiAnswers.nasılsın.length)];
-                } else if (lowerText.includes("galatasaray") || lowerText.includes("gs") || lowerText.includes("cimbom")) {
-                    reply = aiAnswers.galatasaray[Math.floor(Math.random() * aiAnswers.galatasaray.length)];
+                // Eğer henüz bir isim kaydedilmemişse, ilk girdiyi isim kabul et
+                if (!userData.aiNick) {
+                    userData.aiNick = userText;
+                    aiDiv.innerText = `Memnun oldum, ${userData.aiNick}! Tercihinizi kaydettim. Artık size bu şekilde hitap edeceğim. Scratch, kodlama veya oyun tasarımları hakkında bana dilediğiniz soruyu sorabilirsiniz!`;
                 } else {
-                    const randomReplies = [
-                        "Hmm, bunu hemen hafızama atıyorum Boss! Scratch projelerine ekleyeceğimiz yeni bir sistem mi bu? 🚀",
-                        "Harika bir soru! Sitemizi geliştirmeye, kodlarımıza yeni sayfalar eklemeye tam gaz devam ediyoruz!",
-                        "Boss, bu dediğini yapmak için kodları biraz daha geliştirmemiz gerekebilir. Arduino ile mi birleştirsek? 🤖",
-                        "Şu an BETA aşamasındayım ama kurucumuz Boss sayesinde her gün daha da akıllanıyorum! 😎"
-                    ];
-                    reply = randomReplies[Math.floor(Math.random() * randomReplies.length)];
+                    // Normal konuşma moduna geç
+                    let lowerText = userText.toLowerCase();
+                    if (lowerText.includes("selam") || lowerText.includes("merhaba") || lowerText.includes("sa")) {
+                        aiDiv.innerText = `Selamlar ${userData.aiNick}! Umarım harika bir gün geçiriyorsunuzdur. Bugün hangi proje üzerinde çalışıyoruz? 🚀`;
+                    } else if (lowerText.includes("nasılsın") || lowerText.includes("naber")) {
+                        aiDiv.innerText = `Harikayım, teşekkür ederim ${userData.aiNick}! Siz nasılsınız, kodlama dünyasında her şey yolunda mı? 😊`;
+                    } else if (lowerText.includes("scratch") || lowerText.includes("oyun nasıl")) {
+                        aiDiv.innerText = `${userData.aiNick}, Scratch üzerinde harika bir oyun yapmak için öncelikle değişkenleri ve algılama bloklarını iyi kullanmalıyız. Takıldığınız özel bir yer varsa hemen açıklayabilirim!`;
+                    } else {
+                        aiDiv.innerText = `Harika bir konuya değindiniz ${userData.aiNick}! Bilgilerimi kontrol ettim; bu sistemi projemize harika bir şekilde entegre edebiliriz. Başka bir detay öğrenmek ister misiniz?`;
+                    }
                 }
 
-                aiDiv.innerText = reply;
                 messagesBox.appendChild(aiDiv);
                 messagesBox.scrollTop = messagesBox.scrollHeight;
             }, 800);
         }
 
         function clearAIChat() {
-            document.getElementById('ai-messages-box').innerHTML = `
-                <div class="msg-bubble msg-ai">
-                    Sohbet geçmişi temizlendi Boss! Yeni sorularını sormaya başlayabilirsin. Ne hakkında konuşalım?
-                </div>`;
+            initializeAIChat();
         }
 
-        // --- 4. GLOBAL CHAT MESAJ SİSTEMİ ---
+        // --- GLOBAL CHAT SİSTEMİ ---
         function sendGlobalMessage() {
             const input = document.getElementById('global-input');
             const text = input.value.trim();
-            if(!text) return; 
+            if(!text) return;
 
             const chatBox = document.getElementById('global-messages');
             const row = document.createElement('div');
             row.className = 'chat-row';
+            
+            const currentInitial = userData.username.trim().charAt(0).toUpperCase() || "K";
             row.innerHTML = `
-                <div class="chat-avatar" style="background-color: var(--primary); color: white;">B</div>
+                <div class="chat-avatar" style="background-color: var(--primary); color: white;">${currentInitial}</div>
                 <div class="chat-msg-body">
-                    <div class="chat-uname" style="color: #22d3ee;">𝐁𝐎𝐒𝐒 ⌁ 𝐓𝐑 (Sen)</div>
+                    <div class="chat-uname" style="color: #22d3ee;">${userData.username} (Sen)</div>
                     <div class="chat-text">${text}</div>
                 </div>
             `;
@@ -928,6 +990,12 @@
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
         }
+
+        // Sayfa İlk Açıldığında Çalışacak Yapılar
+        window.onload = function() {
+            syncUserInterface();
+            initializeAIChat();
+        };
     </script>
 </body>
 </html>
