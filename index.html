@@ -19,6 +19,7 @@
             --accent-orange: #f59e0b;
             --accent-blue: #3b82f6;
             --success: #10b981;
+            --danger: #ef4444;
         }
 
         * {
@@ -34,6 +35,55 @@
             display: flex;
             height: 100vh;
             overflow: hidden;
+        }
+
+        /* Giriş / Mail İsmi Sorma Ekranı (Modal) */
+        .login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(11, 15, 25, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-modal {
+            background-color: var(--bg-card);
+            border: 1px solid #1e293b;
+            padding: 40px;
+            border-radius: 16px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .login-modal h2 { margin-bottom: 10px; font-size: 22px; color: var(--text-main); }
+        .login-modal p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
+        
+        .login-input {
+            width: 100%;
+            background-color: #0f1524;
+            border: 1px solid #1e293b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            margin-bottom: 20px;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .role-select {
+            width: 100%;
+            background-color: #0f1524;
+            border: 1px solid #1e293b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            margin-bottom: 25px;
+            font-size: 14px;
         }
 
         /* Sol Navigasyon Barı */
@@ -84,20 +134,8 @@
             color: var(--text-main);
         }
 
-        .nav-item.active i {
-            color: var(--primary);
-        }
+        .nav-item.active i { color: var(--primary); }
 
-        .nav-item .badge {
-            background-color: #ef4444;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-left: auto;
-        }
-
-        /* Sol Menü Altındaki Aktif Kullanıcı Alanı */
         .sidebar-user-zone {
             padding: 15px 10px 0 10px;
             border-top: 1px solid #1e293b;
@@ -115,7 +153,7 @@
             padding: 30px;
         }
 
-        /* Üst Header / Arama Alanı */
+        /* Üst Header */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -127,11 +165,7 @@
             border: 1px solid #1e293b;
         }
 
-        .search-box {
-            position: relative;
-            width: 300px;
-        }
-
+        .search-box { position: relative; width: 300px; }
         .search-box input {
             width: 100%;
             background-color: var(--bg-card);
@@ -141,20 +175,9 @@
             color: var(--text-main);
             outline: none;
         }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        .action-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .action-buttons { display: flex; align-items: center; gap: 15px; }
 
         .btn {
             padding: 10px 20px;
@@ -167,10 +190,10 @@
             gap: 8px;
             transition: opacity 0.2s;
         }
-
         .btn:hover { opacity: 0.9; }
         .btn-primary { background-color: var(--primary); color: white; }
         .btn-blue { background-color: var(--accent-blue); color: white; }
+        .btn-danger { background-color: var(--danger); color: white; }
 
         .profile-avatar {
             width: 40px;
@@ -189,7 +212,6 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Ana Sayfa Banner */
         .welcome-banner {
             background-color: var(--bg-card);
             border-radius: 16px;
@@ -201,37 +223,13 @@
             margin-bottom: 40px;
         }
 
-        .banner-stats {
-            display: flex;
-            gap: 20px;
-        }
-
-        .stat-box {
-            background-color: #1e293b;
-            padding: 15px 25px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
+        .banner-stats { display: flex; gap: 20px; }
+        .stat-box { background-color: #1e293b; padding: 15px 25px; border-radius: 12px; text-align: center; }
         .stat-num { font-size: 24px; font-weight: 700; color: var(--primary); }
         .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
-        /* Grid Yapıları ve Kartlar */
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title .badge-live {
-            background-color: var(--success);
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
+        .section-title { font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title .badge-live { background-color: var(--success); font-size: 11px; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
 
         .games-grid {
             display: grid;
@@ -249,22 +247,9 @@
             flex-direction: column;
             transition: transform 0.2s;
         }
-
         .game-card:hover { transform: translateY(-5px); }
-
-        .game-img {
-            height: 130px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .game-info {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
+        .game-img { height: 130px; background-size: cover; background-position: center; }
+        .game-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
         .game-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
         .game-author { font-size: 12px; color: var(--text-muted); margin-bottom: 15px; }
         
@@ -278,11 +263,8 @@
             border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
-            transition: background 0.2s;
         }
-        .play-btn:hover { background-color: #2563eb; }
 
-        /* Topluluk Projeleri Turuncu Kart Stili */
         .community-card .game-img {
             background-color: var(--accent-orange);
             display: flex;
@@ -291,253 +273,119 @@
             font-size: 16px;
             font-weight: 700;
             color: #0b0f19;
-            padding: 10px;
-            text-align: center;
             height: 130px;
         }
 
-        /* Sağ Panel (Çevrimiçi Üyeler) */
-        .right-layout {
-            display: flex;
-            gap: 30px;
-        }
+        /* Sağ Panel */
+        .right-layout { display: flex; gap: 30px; }
         .left-main-area { flex: 1; }
-        .right-sub-panel {
-            width: 280px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .panel-box {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid #1e293b;
-            padding: 20px;
-        }
-
-        .panel-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .right-sub-panel { width: 280px; display: flex; flex-direction: column; gap: 20px; }
+        .panel-box { background-color: var(--bg-card); border-radius: 12px; border: 1px solid #1e293b; padding: 20px; }
+        .panel-title { font-size: 14px; font-weight: 600; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
         .online-count { color: var(--success); font-size: 12px; }
 
-        .user-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+        .user-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .status-dot { width: 8px; height: 8px; background-color: var(--success); border-radius: 50%; }
+        .quick-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .quick-links li { color: var(--accent-blue); cursor: pointer; font-size: 14px; }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--success);
-            border-radius: 50%;
-        }
-
-        .quick-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .quick-links li {
-            color: var(--accent-blue);
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .quick-links li:hover { text-decoration: underline; }
-
-        /* Yapay Zeka Tasarımı */
+        /* Yapay Zeka Alanı */
         .ai-chat-container {
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid #1e293b;
-            height: calc(100vh - 160px);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            background-color: var(--bg-card); border-radius: 16px; border: 1px solid #1e293b;
+            height: calc(100vh - 160px); display: flex; flex-direction: column; overflow: hidden;
         }
-
-        .ai-header {
-            padding: 20px;
-            border-bottom: 1px solid #1e293b;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .ai-header { padding: 20px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
         .ai-info { display: flex; align-items: center; gap: 12px; }
         .ai-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
+            width: 45px; height: 45px; border-radius: 50%; background-color: var(--primary);
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
-
         .ai-title { font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 8px; }
-        .ai-beta-tag {
-            background-color: #1e3a8a;
-            color: #60a5fa;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-        .ai-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .ai-beta-tag { background-color: #1e3a8a; color: #60a5fa; font-size: 11px; padding: 2px 6px; border-radius: 4px; }
+        .ai-clear-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; }
+        .ai-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .msg-bubble { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 15px; line-height: 1.5; }
+        .msg-ai { background-color: #1e293b; color: var(--text-main); align-self: flex-start; border-top-left-radius: 2px; }
+        .msg-user { background-color: var(--primary); color: white; align-self: flex-end; border-top-right-radius: 2px; }
+        .ai-input-area { padding: 20px; border-top: 1px solid #1e293b; display: flex; gap: 12px; align-items: center; }
+        .ai-input-wrapper { position: relative; flex: 1; }
+        .ai-input-wrapper input { width: 100%; background-color: #0f1524; border: 1px solid #1e293b; padding: 14px 20px; border-radius: 12px; color: var(--text-main); outline: none; }
+        .ai-send-btn { background-color: #1e293b; color: var(--accent-blue); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .ai-send-btn.active-btn { background-color: var(--accent-blue); color: white; }
 
-        .ai-clear-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-        }
-
-        .ai-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .msg-bubble {
-            max-width: 75%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
-        .msg-ai {
-            background-color: #1e293b;
-            color: var(--text-main);
-            align-self: flex-start;
-            border-top-left-radius: 2px;
-        }
-
-        .msg-user {
-            background-color: var(--primary);
-            color: white;
-            align-self: flex-end;
-            border-top-right-radius: 2px;
-        }
-
-        .ai-input-area {
-            padding: 20px;
-            border-top: 1px solid #1e293b;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .ai-input-wrapper {
-            position: relative;
-            flex: 1;
-        }
-
-        .ai-input-wrapper input {
-            width: 100%;
-            background-color: #0f1524;
-            border: 1px solid #1e293b;
-            padding: 14px 20px;
-            border-radius: 12px;
-            color: var(--text-main);
-            outline: none;
-            font-size: 14px;
-        }
-
-        .ai-send-btn {
-            background-color: #1e293b;
-            color: var(--accent-blue);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.2s;
-        }
-
-        .ai-send-btn.active-btn {
-            background-color: var(--accent-blue);
-            color: white;
-        }
-
-        .input-hint {
-            text-align: center;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 8px;
-        }
-
-        /* Chat Sayfaları */
-        .chat-box-container {
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid #1e293b;
-            height: calc(100vh - 160px);
-            display: flex;
-            flex-direction: column;
-        }
+        /* Chat Odaları */
+        .chat-box-container { background-color: var(--bg-card); border-radius: 16px; border: 1px solid #1e293b; height: calc(100vh - 160px); display: flex; flex-direction: column; }
         .chat-header { padding: 20px; border-bottom: 1px solid #1e293b; font-weight: 700; font-size: 18px; }
         .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        
         .chat-row { display: flex; gap: 12px; }
         .chat-avatar { width: 35px; height: 35px; border-radius: 50%; background-color: #4b5563; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
         .chat-msg-body { background-color: #1e293b; padding: 10px 14px; border-radius: 8px; max-width: 70%; }
         .chat-uname { font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-        .chat-text { font-size: 14px; }
 
         /* Profil Sayfası */
-        .profile-container {
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid #1e293b;
-            padding: 40px;
-            text-align: center;
-            max-width: 600px;
-            margin: 20px auto 0;
-        }
-        .profile-big-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #1e293b;
-            border: 4px solid var(--primary);
-            font-size: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
+        .profile-container { background-color: var(--bg-card); border-radius: 16px; border: 1px solid #1e293b; padding: 40px; text-align: center; max-width: 600px; margin: 20px auto 0; }
+        .profile-big-avatar { width: 100px; height: 100px; border-radius: 50%; background-color: #1e293b; border: 4px solid var(--primary); font-size: 40px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
         .profile-name { font-size: 26px; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
         .profile-tag { font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 20px; }
         .profile-bio { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
-        .profile-badges { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
-        .p-badge { background-color: #1e293b; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid #334155; }
+        
+        /* SAĞ EN ALTTAKI ÖZEL ADMİN BAN BUTONU VE PANELİ */
+        .admin-floating-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none; /* Sadece Admin giriş yaparsa JavaScript ile açılacak */
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
+            z-index: 999;
+            transition: transform 0.2s;
+        }
+        .admin-floating-btn:hover { transform: scale(1.1); }
+
+        .ban-panel-modal {
+            position: fixed;
+            bottom: 90px;
+            right: 25px;
+            width: 320px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--danger);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+        }
+        .ban-panel-title { font-size: 16px; font-weight: 700; color: var(--danger); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .ban-user-item { display: flex; justify-content: space-between; align-items: center; background:#0f1524; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 14px; }
     </style>
 </head>
 <body>
+
+    <div class="login-overlay" id="login-screen">
+        <div class="login-modal">
+            <h2>SGAC Platform Girişi</h2>
+            <p>Lütfen mail adresinizde veya hesabınızda görünen isminizi girin:</p>
+            <input type="text" class="login-input" id="login-name-input" placeholder="Örn: Ahmet Yılmaz veya Gemo">
+            
+            <p style="margin-bottom: 10px;">Giriş Rolünüzü Seçin:</p>
+            <select class="role-select" id="login-role-select">
+                <option value="user">Standart Kullanıcı</option>
+                <option value="admin">Yönetici (Admin)</option>
+            </select>
+            
+            <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="handlePlatformLogin()">Sisteme Giriş Yap</button>
+        </div>
+    </div>
 
     <nav class="sidebar">
         <div class="logo-area" onclick="switchPage('feed')">
@@ -603,10 +451,6 @@
                                 <div class="stat-num" id="my-project-count">0</div>
                                 <div class="stat-lbl">PROJEM</div>
                             </div>
-                            <div class="stat-box">
-                                <div class="stat-num">0</div>
-                                <div class="stat-lbl">BEĞENİM</div>
-                            </div>
                         </div>
                     </section>
 
@@ -628,22 +472,6 @@
                                 <a href="https://scratch.mit.edu/projects/311730619" target="_blank" class="play-btn">Oyna</a>
                             </div>
                         </div>
-                        <div class="game-card data-searchable">
-                            <div class="game-img" style="background-image: url('https://uploads.scratch.mit.edu/projects/thumbnails/416049514.png');"></div>
-                            <div class="game-info">
-                                <div class="game-title">Super Mario Bros</div>
-                                <div class="game-author">by griffpatch</div>
-                                <a href="https://scratch.mit.edu/projects/416049514" target="_blank" class="play-btn">Oyna</a>
-                            </div>
-                        </div>
-                        <div class="game-card data-searchable">
-                            <div class="game-img" style="background-image: url('https://uploads.scratch.mit.edu/projects/thumbnails/10123456.png');"></div>
-                            <div class="game-info">
-                                <div class="game-title">Minecraft 2D</div>
-                                <div class="game-author">by griffpatch</div>
-                                <a href="https://scratch.mit.edu/projects/10123456" target="_blank" class="play-btn">Oyna</a>
-                            </div>
-                        </div>
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -658,20 +486,6 @@
                                 <div class="game-author">Topluluk Oyunu</div>
                             </div>
                         </div>
-                        <div class="game-card community-card data-searchable">
-                            <div class="game-img">Scratch Project</div>
-                            <div class="game-info">
-                                <div class="game-title">Gariban Kedoş Sezon 1 Bölüm 1</div>
-                                <div class="game-author">Eğlenceli Platformer</div>
-                            </div>
-                        </div>
-                        <div class="game-card community-card data-searchable">
-                            <div class="game-img">Scratch Project</div>
-                            <div class="game-info">
-                                <div class="game-title">Dürümbüs Simulator</div>
-                                <div class="game-author">Simülasyon Oyunu</div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -680,23 +494,30 @@
                     <div class="panel-box">
                         <div class="panel-title">
                             <span>Çevrimiçi Üyeler</span>
-                            <span class="online-count" id="online-indicator-num">1</span>
+                            <span class="online-count" id="online-indicator-num">4</span>
                         </div>
                         <div id="online-users-list">
-                            <div class="user-row data-searchable">
+                            <div class="user-row data-searchable" id="row-current-user">
                                 <div class="status-dot"></div>
-                                <div class="profile-avatar sidebar-avatar-sync" style="width: 28px; height: 28px; font-size: 11px; border: 1px solid var(--primary);">K</div>
-                                <span style="font-size: 14px; font-weight: 500;" id="panel-username-lbl">Sayın Kullanıcı</span>
+                                <div class="profile-avatar" id="panel-current-avatar" style="width: 28px; height: 28px; font-size: 11px; border: 1px solid var(--primary);">K</div>
+                                <span style="font-size: 14px; font-weight: 600;" id="panel-username-lbl">Sayın Kullanıcı</span>
+                            </div>
+                            <div class="user-row data-searchable" id="user-yagiz">
+                                <div class="status-dot"></div>
+                                <div class="profile-avatar" style="width: 28px; height: 28px; font-size: 11px; background:#4b5563;">Y</div>
+                                <span style="font-size: 14px; color: var(--text-main);">Yağız Demir</span>
+                            </div>
+                            <div class="user-row data-searchable" id="user-ahmet">
+                                <div class="status-dot"></div>
+                                <div class="profile-avatar" style="width: 28px; height: 28px; font-size: 11px; background:#4b5563;">A</div>
+                                <span style="font-size: 14px; color: var(--text-main);">Ahmet Kaya</span>
+                            </div>
+                            <div class="user-row data-searchable" id="user-selin">
+                                <div class="status-dot"></div>
+                                <div class="profile-avatar" style="width: 28px; height: 28px; font-size: 11px; background:#4b5563;">S</div>
+                                <span style="font-size: 14px; color: var(--text-main);">Selin Yılmaz</span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="panel-box">
-                        <div class="panel-title">Hızlı Erişim</div>
-                        <ul class="quick-links">
-                            <li onclick="switchPage('global')">• Global Chat</li>
-                            <li onclick="addNewCommunityProject()">• Proje Paylaş</li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -716,34 +537,20 @@
                         <i class="fa-solid fa-trash-can"></i> Temizle
                     </button>
                 </div>
-
-                <div class="ai-messages" id="ai-messages-box">
-                    </div>
-
+                <div class="ai-messages" id="ai-messages-box"></div>
                 <div class="ai-input-area">
                     <div class="ai-input-wrapper">
                         <input type="text" id="ai-input-field" placeholder="Mesajınızı yazın..." oninput="toggleAISendButton()" onkeydown="if(event.key === 'Enter') sendToAI()">
                     </div>
-                    <button class="ai-send-btn" id="ai-btn-submit" onclick="sendToAI()">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
+                    <button class="ai-send-btn" id="ai-btn-submit" onclick="sendToAI()"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
-                <div class="input-hint">Enter ile gönder</div>
             </div>
         </div>
 
         <div id="page-global" class="page">
             <div class="chat-box-container">
                 <div class="chat-header"><i class="fa-solid fa-globe" style="color: var(--accent-blue); margin-right: 8px;"></i> Global Chat</div>
-                <div class="chat-messages" id="global-messages">
-                    <div class="chat-row">
-                        <div class="chat-avatar">U</div>
-                        <div class="chat-msg-body">
-                            <div class="chat-uname">Kullanıcı</div>
-                            <div class="chat-text">Selamlar! Sitenin yeni hali çok güzel görünüyor. 🚀</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="chat-messages" id="global-messages"></div>
                 <div class="ai-input-area">
                     <input type="text" id="global-input" placeholder="Global chate mesaj yaz..." style="flex:1; background:#0f1524; border:1px solid #1e293b; padding:12px; border-radius:8px; color:white; outline:none;" onkeydown="if(event.key==='Enter') sendGlobalMessage()">
                     <button class="ai-send-btn active-btn" onclick="sendGlobalMessage()"><i class="fa-solid fa-paper-plane"></i></button>
@@ -756,7 +563,7 @@
                 <div class="chat-header"><i class="fa-solid fa-comments" style="color: var(--primary); margin-right: 8px;"></i> Gelen Kutusu</div>
                 <div style="padding: 20px; color: var(--text-muted); text-align: center; margin-top: 50px;">
                     <i class="fa-solid fa-envelope-open" style="font-size: 40px; margin-bottom: 15px; color: var(--primary);"></i>
-                    <p>Gelen kutunuz temiz! Yeni bir bildirim veya mesaj bulunmuyor.</p>
+                    <p>Gelen kutunuz temiz! Yeni bir bildirim bulunmuyor.</p>
                 </div>
             </div>
         </div>
@@ -775,13 +582,8 @@
             <div class="profile-container">
                 <div class="profile-big-avatar" id="profile-main-avatar">K</div>
                 <div class="profile-name" id="display-profile-name">Sayın Kullanıcı</div>
-                <div class="profile-tag" id="display-profile-tag">SGAC Topluluk Üyesi</div>
-                <p class="profile-bio" id="display-profile-bio">
-                    Henüz bir profil açıklaması eklenmedi. Kendinizden bahsetmek için profili düzenleyin!
-                </p>
-                <div class="profile-badges">
-                    <span class="p-badge" style="color: var(--primary); border-color: var(--primary);"><i class="fa-solid fa-user-check"></i> Onaylı Üye</span>
-                </div>
+                <div class="profile-tag" id="display-profile-tag">Mevcut Üye</div>
+                <p class="profile-bio" id="display-profile-bio">Kendinizden bahsetmek için profili düzenleyin!</p>
                 <button class="btn btn-blue" style="margin: 0 auto;" onclick="editMyProfile()">
                     <i class="fa-solid fa-user-gear"></i> Profili Düzenle
                 </button>
@@ -790,56 +592,128 @@
 
     </main>
 
+    <button class="admin-floating-btn" id="admin-master-btn" onclick="toggleBanPanel()">
+        <i class="fa-solid fa-gavel"></i>
+    </button>
+
+    <div class="ban-panel-modal" id="admin-ban-modal">
+        <div class="ban-panel-title">
+            <span><i class="fa-solid fa-shield-halved"></i> Kullanıcı Yönetimi</span>
+            <i class="fa-solid fa-xmark" style="cursor:pointer; color:var(--text-muted);" onclick="toggleBanPanel()"></i>
+        </div>
+        <div id="ban-list-container">
+            <div class="ban-user-item" id="ban-item-yagiz">
+                <span>Yağız Demir</span>
+                <button class="btn btn-danger" style="padding:4px 10px; font-size:12px; border-radius:4px;" onclick="kickUser('yagiz', 'Yağız Demir')">Banla</button>
+            </div>
+            <div class="ban-user-item" id="ban-item-ahmet">
+                <span>Ahmet Kaya</span>
+                <button class="btn btn-danger" style="padding:4px 10px; font-size:12px; border-radius:4px;" onclick="kickUser('ahmet', 'Ahmet Kaya')">Banla</button>
+            </div>
+            <div class="ban-user-item" id="ban-item-selin">
+                <span>Selin Yılmaz</span>
+                <button class="btn btn-danger" style="padding:4px 10px; font-size:12px; border-radius:4px;" onclick="kickUser('selin', 'Selin Yılmaz')">Banla</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- KULLANICI BİLGİLERİ VE HAFIZA SİSTEMİ ---
         let userData = {
             username: "Sayın Kullanıcı",
-            tag: "SGAC Topluluk Üyesi",
-            bio: "Henüz bir profil açıklaması eklenmedi. Kendinizden bahsetmek için profili düzenleyin!",
-            aiNick: "" // Yapay zekanın hitap edeceği isim
+            role: "user", // admin veya user
+            bio: "Kendinizden bahsetmek için profili düzenleyin!",
+            aiNick: "" 
         };
 
-        // Verileri Arayüze Senkronize Eden Fonksiyon
+        // --- PLATFORM GİRİŞ SİSTEMİ (MAIL İSMİ AYARI) ---
+        function handlePlatformLogin() {
+            const nameInput = document.getElementById('login-name-input').value.trim();
+            const roleInput = document.getElementById('login-role-select').value;
+            
+            if (nameInput !== "") {
+                userData.username = nameInput;
+            } else {
+                userData.username = "Sayın Kullanıcı";
+            }
+            
+            userData.role = roleInput;
+
+            // Admin kontrolü ve Ban butonunun aktif edilmesi
+            if (userData.role === "admin") {
+                document.getElementById('admin-master-btn').style.display = "flex";
+                document.getElementById('display-profile-tag').innerText = "Platform Yöneticisi (Admin)";
+                document.getElementById('display-profile-tag').style.color = "var(--danger)";
+            } else {
+                document.getElementById('admin-master-btn').style.display = "none";
+                document.getElementById('display-profile-tag').innerText = "SGAC Topluluk Üyesi";
+                document.getElementById('display-profile-tag').style.color = "var(--primary)";
+            }
+
+            // Arayüzü güncelle ve giriş ekranını kapat
+            syncUserInterface();
+            initializeAIChat();
+            document.getElementById('login-screen').style.display = "none";
+        }
+
+        // Arayüz Senkronizasyonu
         function syncUserInterface() {
             const initial = userData.username.trim().charAt(0).toUpperCase() || "K";
             
-            // İsimleri Güncelle
             document.getElementById('sidebar-username').innerText = userData.username;
             document.getElementById('panel-username-lbl').innerText = userData.username;
             document.getElementById('display-profile-name').innerText = userData.username;
             document.getElementById('welcome-title').innerText = `SGAC Topluluğuna Hoş Geldiniz, ${userData.username}!`;
-            
-            // Profil Sayfasını Güncelle
-            document.getElementById('display-profile-tag').innerText = userData.tag;
             document.getElementById('display-profile-bio').innerText = userData.bio;
             
-            // Avatarları Güncelle
             document.getElementById('header-avatar').innerText = initial;
             document.getElementById('profile-main-avatar').innerText = initial;
-            
-            const syncs = document.querySelectorAll('.sidebar-avatar-sync');
-            syncs.forEach(el => el.innerText = initial);
+            document.getElementById('panel-current-avatar').innerText = initial;
         }
 
-        // Profili Düzenleme Buton Fonksiyonu
+        // Profil Düzenleme (Ünvan alanı kaldırıldı)
         function editMyProfile() {
             const newName = prompt("Yeni İsminizi Girin:", userData.username);
             if(newName && newName.trim() !== "") {
                 userData.username = newName.trim();
             }
 
-            const newTag = prompt("Yeni Unvanınızı Girin (Örn: Geliştirici, Scratch Tasarımcısı):", userData.tag);
-            if(newTag && newTag.trim() !== "") {
-                userData.tag = newTag.trim();
-            }
-
-            const newBio = prompt("Kendiniz hakkında kısa bir açıklama yazın:", userData.bio);
+            const newBio = prompt("Hakkımda yazısını düzenleyin:", userData.bio);
             if(newBio && newBio.trim() !== "") {
                 userData.bio = newBio.trim();
             }
 
             syncUserInterface();
-            alert("Profil bilgileriniz başarıyla güncellendi!");
+            alert("Profil bilgileriniz güncellendi!");
+        }
+
+        // --- ADMİN BANLAMA SİSTEMİ ---
+        function toggleBanPanel() {
+            const panel = document.getElementById('admin-ban-modal');
+            panel.style.display = (panel.style.display === "block") ? "none" : "block";
+        }
+
+        function kickUser(userId, userFullName) {
+            if(confirm(`${userFullName} isimli kullanıcıyı platformdan banlamak istediğinize emin misiniz?`)) {
+                // Listeden ve panelden sil/güncelle
+                const userRow = document.getElementById('user-' + userId);
+                if(userRow) {
+                    userRow.style.opacity = "0.3";
+                    userRow.querySelector('span').innerText = `${userFullName} (Banlandı)`;
+                    userRow.querySelector('.status-dot').style.backgroundColor = "var(--danger)";
+                }
+                
+                const banItem = document.getElementById('ban-item-' + userId);
+                if(banItem) {
+                    banItem.innerHTML = `<span style="color:var(--danger); text-decoration:line-through;">${userFullName} (Engellendi)</span>`;
+                }
+
+                // Aktif üye sayısını düşür
+                const countEl = document.getElementById('online-indicator-num');
+                let currentCount = parseInt(countEl.innerText);
+                if(currentCount > 1) countEl.innerText = currentCount - 1;
+
+                alert(`${userFullName} başarıyla banlandı!`);
+            }
         }
 
         // --- SAYFA GEÇİŞ SİSTEMİ ---
@@ -855,7 +729,7 @@
             if(activeMenu) activeMenu.classList.add('active');
         }
 
-        // --- GELİŞMİŞ VE AKTİF ARAMA ÇUBUĞU SİSTEMİ ---
+        // --- ARAMA SİSTEMİ ---
         function executeSearch() {
             const query = document.getElementById('main-search-input').value.toLowerCase().trim();
             const items = document.querySelectorAll('.data-searchable');
@@ -863,21 +737,20 @@
             items.forEach(item => {
                 const textContent = item.textContent.toLowerCase();
                 if(textContent.includes(query)) {
-                    item.style.display = ""; // Eşleşiyorsa göster
+                    item.style.display = "";
                 } else {
-                    item.style.display = "none"; // Eşleşmiyorsa gizle
+                    item.style.display = "none";
                 }
             });
         }
 
-        // --- DİNAMİK PROJE EKLEME SİSTEMİ ---
+        // --- PROJE EKLEME SİSTEMİ ---
         let currentProjectCount = 0;
-
         function addNewCommunityProject() {
             const projectTitle = prompt("Eklenecek Scratch Projesinin Adını Yazın:");
             if (!projectTitle || projectTitle.trim() === "") return;
 
-            const projectDesc = prompt("Proje için kısa bir açıklama yazın:");
+            const projectDesc = prompt("Proje açıklaması:");
             const finalDesc = (projectDesc && projectDesc.trim() !== "") ? projectDesc : "Topluluk Projesi";
 
             const projectArea = document.getElementById('community-projects-area');
@@ -890,22 +763,18 @@
                     <div class="game-author">${finalDesc}</div>
                 </div>
             `;
-
             projectArea.insertBefore(newCard, projectArea.firstChild);
-
             currentProjectCount++;
             document.getElementById('my-project-count').innerText = currentProjectCount;
-
-            alert(`"${projectTitle}" başarıyla Topluluk Projelerine eklendi!`);
         }
 
-        // --- KİŞİSELLEŞTİRİLMİŞ YAPAY ZEKA SİSTEMİ (HITAP ALANLI) ---
+        // --- HITAP SİSTEMLİ YAPAY ZEKA ---
         function initializeAIChat() {
             const messagesBox = document.getElementById('ai-messages-box');
-            userData.aiNick = ""; // Sıfırla
+            userData.aiNick = ""; 
             messagesBox.innerHTML = `
-                <div class="msg-bubble msg-ai" id="ai-first-question">
-                    Merhaba! Ben SGAC Yapay Zeka asistanıyım. Sohbetimize başlamadan önce size nasıl hitap etmemi istersiniz? Lütfen aşağıya sadece isminizi veya tercih ettiğiniz hitap şeklini yazın.
+                <div class="msg-bubble msg-ai">
+                    Merhaba! Ben SGAC Yapay Zeka asistanıyım. Sohbetimize başlamadan önce size nasıl hitap etmemi istersiniz? Lütfen aşağıya istediğiniz hitap şeklini veya isminizi yazın.
                 </div>
             `;
         }
@@ -913,11 +782,8 @@
         function toggleAISendButton() {
             const inputVal = document.getElementById('ai-input-field').value.trim();
             const btn = document.getElementById('ai-btn-submit');
-            if (inputVal.length > 0) {
-                btn.classList.add('active-btn');
-            } else {
-                btn.classList.remove('active-btn');
-            }
+            if (inputVal.length > 0) btn.classList.add('active-btn');
+            else btn.classList.remove('active-btn');
         }
 
         function sendToAI() {
@@ -926,8 +792,6 @@
             if (!userText) return;
 
             const messagesBox = document.getElementById('ai-messages-box');
-
-            // Kullanıcı balonunu ekle
             const userDiv = document.createElement('div');
             userDiv.className = 'msg-bubble msg-user';
             userDiv.innerText = userText;
@@ -941,34 +805,27 @@
                 const aiDiv = document.createElement('div');
                 aiDiv.className = 'msg-bubble msg-ai';
                 
-                // Eğer henüz bir isim kaydedilmemişse, ilk girdiyi isim kabul et
                 if (!userData.aiNick) {
                     userData.aiNick = userText;
-                    aiDiv.innerText = `Memnun oldum, ${userData.aiNick}! Tercihinizi kaydettim. Artık size bu şekilde hitap edeceğim. Scratch, kodlama veya oyun tasarımları hakkında bana dilediğiniz soruyu sorabilirsiniz!`;
+                    aiDiv.innerText = `Harika, bundan sonra size "${userData.aiNick}" şeklinde hitap edeceğim! Scratch ve kodlama projeleriniz hakkında dilediğinizi sorabilirsiniz.`;
                 } else {
-                    // Normal konuşma moduna geç
                     let lowerText = userText.toLowerCase();
-                    if (lowerText.includes("selam") || lowerText.includes("merhaba") || lowerText.includes("sa")) {
-                        aiDiv.innerText = `Selamlar ${userData.aiNick}! Umarım harika bir gün geçiriyorsunuzdur. Bugün hangi proje üzerinde çalışıyoruz? 🚀`;
-                    } else if (lowerText.includes("nasılsın") || lowerText.includes("naber")) {
-                        aiDiv.innerText = `Harikayım, teşekkür ederim ${userData.aiNick}! Siz nasılsınız, kodlama dünyasında her şey yolunda mı? 😊`;
-                    } else if (lowerText.includes("scratch") || lowerText.includes("oyun nasıl")) {
-                        aiDiv.innerText = `${userData.aiNick}, Scratch üzerinde harika bir oyun yapmak için öncelikle değişkenleri ve algılama bloklarını iyi kullanmalıyız. Takıldığınız özel bir yer varsa hemen açıklayabilirim!`;
+                    if (lowerText.includes("selam") || lowerText.includes("merhaba")) {
+                        aiDiv.innerText = `Selamlar ${userData.aiNick}! Bugün hangi projeyi geliştiriyoruz? 🚀`;
+                    } else if (lowerText.includes("nasılsın")) {
+                        aiDiv.innerText = `Çok iyiyim, teşekkürler ${userData.aiNick}! Umarım siz de iyisinizdir.`;
                     } else {
-                        aiDiv.innerText = `Harika bir konuya değindiniz ${userData.aiNick}! Bilgilerimi kontrol ettim; bu sistemi projemize harika bir şekilde entegre edebiliriz. Başka bir detay öğrenmek ister misiniz?`;
+                        aiDiv.innerText = `Bu harika bir fikir ${userData.aiNick}, projenize eklemek harika sonuçlar verecektir!`;
                     }
                 }
-
                 messagesBox.appendChild(aiDiv);
                 messagesBox.scrollTop = messagesBox.scrollHeight;
-            }, 800);
+            }, 700);
         }
 
-        function clearAIChat() {
-            initializeAIChat();
-        }
+        function clearAIChat() { initializeAIChat(); }
 
-        // --- GLOBAL CHAT SİSTEMİ ---
+        // --- GLOBAL CHAT ---
         function sendGlobalMessage() {
             const input = document.getElementById('global-input');
             const text = input.value.trim();
@@ -977,10 +834,9 @@
             const chatBox = document.getElementById('global-messages');
             const row = document.createElement('div');
             row.className = 'chat-row';
-            
-            const currentInitial = userData.username.trim().charAt(0).toUpperCase() || "K";
+            const initial = userData.username.charAt(0).toUpperCase();
             row.innerHTML = `
-                <div class="chat-avatar" style="background-color: var(--primary); color: white;">${currentInitial}</div>
+                <div class="chat-avatar" style="background-color: var(--primary); color: white;">${initial}</div>
                 <div class="chat-msg-body">
                     <div class="chat-uname" style="color: #22d3ee;">${userData.username} (Sen)</div>
                     <div class="chat-text">${text}</div>
@@ -990,12 +846,6 @@
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
         }
-
-        // Sayfa İlk Açıldığında Çalışacak Yapılar
-        window.onload = function() {
-            syncUserInterface();
-            initializeAIChat();
-        };
     </script>
 </body>
 </html>
