@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGAC Topluluğu</title>
+    <style>
+        /* Genel Tema ve Arka Plan */
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Üst Menü (Navbar) */
+        .navbar {
+            background-color: #111827;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #1f2937;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #38bdf8, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-bar {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: white;
+            width: 200px;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #38bdf8;
+        }
+
+        .ai-btn {
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .ai-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .add-project-btn {
+            background-color: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);
+        }
+
+        .profile-avatar {
+            background-color: #1e293b;
+            color: #38bdf8;
+            border: 2px solid #38bdf8;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Ana Sayfa Düzeni */
+        .main-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Grid Sistemi */
+        .content-grid {
+            display: flex;
+            gap: 20px;
+        }
+
+        .left-column {
+            flex: 3;
+        }
+
+        .right-column {
+            flex: 1;
+        }
+
+        /* Üst Hoş Geldiniz Bannerı */
+        .welcome-banner {
+            background: linear-gradient(135deg, #111827, #1f2937);
+            border: 1px solid #374151;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner-text h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .banner-text h1 span {
+            background: linear-gradient(to right, #38bdf8, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .banner-text p {
+            margin: 0;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .banner-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat-box {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .stat-num {
+            font-size: 18px;
+            font-weight: bold;
+            color: #38bdf8;
+            display: block;
+        }
+
+        .stat-num.pink {
+            color: #ec4899;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Bölüm Başlıkları */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-tag {
+            background-color: #22c55e;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Oyun Slayt Kartları */
+        .games-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+
+        .game-thumb {
+            width: 100%;
+            height: 120px;
+            background-color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .bg-cave { background-image: radial-gradient(circle, #cbd5e1 30%, #94a3b8 70%); }
+        .bg-mario { background-color: #0284c7; }
+        .bg-mine { background-image: linear-gradient(to bottom, #15803d, #78350f); }
+
+        .game-info {
+            padding: 12px;
+        }
+
+        .game-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 4px 0;
+        }
+
+        .game-author {
+            font-size: 11px;
+            color: #6b7280;
+            margin: 0 0 10px 0;
+        }
+
+        .play-btn {
+            background-color: #0369a1;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .play-btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        /* Sağ Panel */
+        .sidebar-box {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #9ca3af;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+        }
+
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .link-list li {
+            margin-bottom: 10px;
+        }
+
+        .link-list a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* Topluluk Projeleri */
+        .grid-projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .project-card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .project-orange-banner {
+            background-color: #f59e0b;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .project-body {
+            padding: 15px;
+        }
+
+        .project-title-text {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+
+        .project-desc-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .share-btn {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* 🤖 SGAC AI CHAT PENCERESİ 🤖 */
+        .ai-chat-window {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 330px;
+            height: 430px;
+            background-color: #111827;
+            border: 2px solid #a855f7;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: none; /* İlk başta gizli, butona basınca açılır */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .close-chat-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-msg {
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .msg-ai {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .msg-user {
+            background-color: #a855f7;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .ai-chat-input-area {
+            padding: 10px;
+            background-color: #0f172a;
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #1f2937;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .ai-send-btn {
+            background-color: #a855f7;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Menü -->
+    <div class="navbar">
+        <div class="nav-left">
+            <div class="logo">SGAC</div>
+            <input type="text" class="search-bar" placeholder="Ara...">
+        </div>
+        <div class="nav-center">
+            <!-- Tıklayınca Chat'i açan mor yapay zeka butonu -->
+            <button class="ai-btn" onclick="toggleAIChat()">✨ SGAC AI</button>
+            <a href="#" class="nav-link">🏠 Feed</a>
+            <a href="#" class="nav-link">💬 Global Chat</a>
+            <a href="#" class="nav-link">✉️ Mesajlar</a>
+        </div>
+        <div class="nav-right">
+            <button class="add-project-btn">+ Proje Ekle</button>
+            <div class="profile-avatar">B</div>
+        </div>
+    </div>
+
+    <!-- Ana Konteyner -->
+    <div class="main-container">
+        <div class="content-grid">
+            
+            <!-- SOL İÇERİK -->
+            <div class="left-column">
+                <div class="welcome-banner">
+                    <div class="banner-text">
+                        <h1><span>SGAC</span> Topluluğu</h1>
+                        <p>Scratch projelerini paylaş, keşfet ve arkadaşlarınla oyna!</p>
+                    </div>
+                    <div class="banner-stats">
+                        <div class="stat-box">
+                            <span class="stat-num">2</span>
+                            <span class="stat-label">Projem</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num pink">3</span>
+                            <span class="stat-label">Beğenim</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <span>🎮 Oynayabileceğin Projeler <span class="live-tag">CANLI</span></span>
+                </div>
+
+                <div class="games-row">
+                    <div class="game-card">
+                        <div class="game-thumb bg-cave"></div>
+                        <div class="game-info">
+                            <p class="game-name">Cave Run</p>
+                            <p class="game-author">by griffpatch</p>
+                            <button class="play-btn">Oyna</button>
+                        </div>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-thumb" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=150&q=80');"></div>
+                        <div class="game-info">
+                            <p class="game-name">Tower Defence</p>
+                            <p class="game-author">by griffpatch</p>
+                            <button class="play-btn">Oyna</button>
+                        </div>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-thumb bg-mario"></div>
+                        <div class="game-info">
+                            <p class="game-name">Super Mario Bros</p>
+                            <p class="game-author">by griffpatch</p>
+                            <button class="play-btn">Oyna</button>
+                        </div>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-thumb bg-mine"></div>
+                        <div class="game-info">
+                            <p class="game-name">Minecraft 2D</p>
+                            <p class="game-author">by griffpatch</p>
+                            <button class="play-btn">Oyna</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <span>🏆 Topluluk Projeleri</span>
+                    <button class="share-btn">Proje Paylaş</button>
+                </div>
+
+                <div class="grid-projects">
+                    <div class="project-card">
+                        <div class="project-orange-banner">Scratch Project</div>
+                        <div class="project-body">
+                            <p class="project-title-text">Agalar Clicker</p>
+                            <p class="project-desc-text">A cool Scratch project!</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-orange-banner">Scratch Project</div>
+                        <div class="project-body">
+                            <p class="project-title-text">Gariban Kedoş Sezin 1 Bölüm 1 "Kedoş"</p>
+                            <p class="project-desc-text">yaptığım en normal oyun</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-orange-banner">Scratch Project</div>
+                        <div class="project-body">
+                            <p class="project-title-text">Dürümbüs Simulator (Yerli Malı Oyun)</p>
+                            <p class="project-desc-text">A cool Scratch project!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SAĞ PANEL -->
+            <div class="right-column">
+                <div class="sidebar-box">
+                    <div class="sidebar-title">
+                        <span>🟢 Çevrimiçi Üyeler</span>
+                        <span style="color: #22c55e;">1</span>
+                    </div>
+                    <div class="user-row">
+                        <span class="status-dot"></span>
+                        <div class="user-avatar">B</div>
+                        <span style="font-weight: bold;">Boss</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <div class="sidebar-title">Hızlı Erişim</div>
+                    <ul class="link-list">
+                        <li><a href="#">• Global Chat</a></li>
+                        <li><a href="#">• Proje Paylaş</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🤖 SGAC AI AKTİF PENCERE DÜZENİ 🤖 -->
+    <div class="ai-chat-window" id="aiChatBox">
+        <div class="ai-chat-header">
+            <span>✨ SGAC AI Asistanı</span>
+            <button class="close-chat-btn" onclick="toggleAIChat()">✕</button>
+        </div>
+        <div class="ai-chat-messages" id="chatMessages">
+            <div class="chat-msg msg-ai">
+                Selam! Ben SGAC topluluğunun yapay zeka asistanıyım. Sitedeki projeler ve oyunlar hakkında bilgi almak ister misin? 🦁
+            </div>
+        </div>
+        <div class="ai-chat-input-area">
+            <input type="text" class="ai-chat-input" id="userInput" placeholder="Mesajınızı yazın..." onkeydown="if(event.key === 'Enter') sendAIMessage()">
+            <button class="ai-send-btn" onclick="sendAIMessage()">Gönder</button>
+        </div>
+    </div>
+
+    <!-- 🧠 YAPAY ZEKA ÇALIŞMA SİSTEMİ (JAVASCRIPT) 🧠 -->
+    <script>
+        // Chat penceresini açıp kapatan fonksiyon
+        function toggleAIChat() {
+            var chatBox = document.getElementById("aiChatBox");
+            if(chatBox.style.display === "flex") {
+                chatBox.style.display = "none";
+            } else {
+                chatBox.style.display = "flex";
+            }
+        }
+
+        // Akıllı otomatik cevap verme mekanizması
+        function sendAIMessage() {
+            var inputEl = document.getElementById("userInput");
+            var msgText = inputEl.value.trim();
+            if(msgText === "") return;
+
+            var msgArea = document.getElementById("chatMessages");
+
+            // Kullanıcı mesajını ekrana yaz
+            var userMsgDiv = document.createElement("div");
+            userMsgDiv.className = "chat-msg msg-user";
+            userMsgDiv.innerText = msgText;
+            msgArea.appendChild(userMsgDiv);
+            
+            inputEl.value = "";
+            msgArea.scrollTop = msgArea.scrollHeight;
+
+            // Yapay zeka cevap veriyor simülasyonu
+            setTimeout(function() {
+                var aiMsgDiv = document.createElement("div");
+                aiMsgDiv.className = "chat-msg msg-ai";
+                
+                // Küçük akıllı tetikleyiciler
+                var lowerText = msgText.toLowerCase();
+                if(lowerText.includes("selam") || lowerText.includes("merhaba")) {
+                    aiMsgDiv.innerText = "Sana da merhaba! SGAC Topluluğuna hoş geldin. Bugün hangi harika Scratch oyununu deniyoruz? 🎮";
+                } else if(lowerText.includes("nasılsın")) {
+                    aiMsgDiv.innerText = "Harikayım! SGAC platformundaki harika projeleri inceliyorum. Sen nasılsın, her şey yolunda mı? 😎";
+                } else if(lowerText.includes("oyun") || lowerText.includes("proje")) {
+                    aiMsgDiv.innerText = "Sitemizde griffpatch'in Cave Run veya Minecraft 2D oyunları var! Ayrıca topluluk projelerindeki 'Agalar Clicker' ve 'Dürümbüs Simulator' efsane duruyor! 🏆";
+                } else if(lowerText.includes("boss") || lowerText.includes("admin")) {
+                    aiMsgDiv.innerText = "Boss bu platformun kurucusu ve lideridir! Çevrimiçi üyeler panelinde kendisini görebilirsin. 👑";
+                } else {
+                    aiMsgDiv.innerText = "Harika bir soru! SGAC topluluğu her gün yeni projelerle büyüyor. Kodlarımızı geliştirmeye tam gaz devam ediyoruz! 🚀";
+                }
+
+                msgArea.appendChild(aiMsgDiv);
+                msgArea.scrollTop = msgArea.scrollHeight;
+            }, 800);
+        }
+    </script>
+
+</body>
+</html>
